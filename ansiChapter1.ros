@@ -1,0 +1,92 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf))
+  ;;#+quicklisp (ql:quickload '() :silent t)
+  
+
+;; (defpackage :ros.script.ansiChapter1.3732195380
+;;   (:use :cl))
+;; (in-package :ros.script.ansiChapter1.3732195380)
+
+
+
+;; solution to 3 
+(defun our-nth (lst position) 
+  (if (= 0 position)
+      (car lst)
+      (if (cdr lst)
+          (our-nth  (cdr lst) (- position 1))
+          nil)))
+
+;;  4
+(defun greater (a b)
+  (if (> a b)
+      a
+      b))
+
+;; 5 
+(defun enigma (x)
+ (and (not (null x))
+  (or (null (car x))
+   (enigma (cdr x))))) 
+
+(defun mystery (x y)
+ (if (null y)
+  nil
+  (if (eql (car y) x)
+   0
+   (let ((z (mystery x (cdr y))))
+    (and z (+ z 1)))))) 
+ 
+;; 7 
+(defun has-list (lst) (dolist (obj lst) (if (listp obj) (return t) nil)))
+;; 8 
+;; a
+(defun print-dots-recursive (n) 
+  (if (= n 0)
+      nil
+      (progn (format t ".")
+        (print-dots-recursive (- n 1)))))
+(defun print-dots-iterative (n)
+ (do ((i n (- i 1)))
+     ((= i 0))
+     (format t ".")))
+;; b
+(defun times-a-recursive (lst) 
+  (if (null lst)
+      0
+      (let ((n 0))
+       (if (eql `a (car lst)) (setf n (+ n 1)) nil)
+       (+ n (times-a-recursive (cdr lst))))))
+        
+(defun times-a-iterative (lst) 
+  (let ((n 0))
+       (dolist (obj lst)
+         (if (eql 'a obj)
+             (setf n (+ n 1))
+             nil))
+       n))
+;; 9
+;; a
+(defun summit(lst)
+  (let ((x (remove nil lst)))
+       (apply #'+ x)))
+;; b
+ (defun summit-recursive (lst)
+  (if (null lst)
+      0
+      (let ((x (car lst)))
+        (if (null x)
+            (summit (cdr lst))
+            (+ x (summit (cdr lst))))))) 
+  
+
+
+
+(defun main (&rest argv)
+  (declare (ignorable argv)))
+;;; vim: set ft=lisp lisp:

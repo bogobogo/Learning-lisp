@@ -1,0 +1,87 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf))
+  ;;#+quicklisp (ql:quickload '() :silent t)
+  
+
+(defpackage :ros.script.tic-tac-tow-functions.3732121908
+  (:use :cl))
+(in-package :ros.script.tic-tac-tow-functions.3732121908)
+
+(defun prompt-read (prompt)
+  (format *query-io* "~a:" prompt)
+  (force-output *query-io*)
+  (read-line *query-io*))
+
+
+;;; vim: set ft=lisp lisp:
+
+(defvar *board* (make-array '(3 3) :initial-element 0))
+
+(defvar *welcome-message* 
+"Hello and welcome to (tic tac tow)! its like tic-tac-tow, except it is... no actually it's exactly like tic-tac-tow.
+ But it's written in common lisp. Its a programming language. never mind.
+ To begin, please enter the first player name and the second player name!")
+
+ (defvar *how-to-play-message* 
+"Hello and welcome to (tic tac tow)! its like tic-tac-tow, except it is... no actually it's exactly like tic-tac-tow.
+ But it's written in common lisp. Its a programming language. never mind.
+ To begin, please enter the first player name and the second player name!")
+(defvar *player1-name* nil)
+(defvar *player2-name* nil)
+
+(defun start-game ()
+  (format t "~a~%~%" *welcome-message* )
+   (setf *player1-name* (prompt-read "Please enter player 1 name"))
+   (setf *player2-name* (prompt-read "Please enter player 2 name"))
+   (format t "Alright ~a and ~a, here is how you play!" *player1-name* *player2-name*)
+   (format t "~A~%~a~%~%" (render-board *board*) *how-to-play-message* )
+   (are-you-ready?)
+   (play)
+    )
+
+(start-game)
+(setf *board-ascii* "╔══════╤═════╤══════╗
+║   ~a  │  ~a  │  ~a   ║
+╟──────┼─────┼──────╢
+║   ~a  │  ~a  │  ~a   ║
+╟──────┼─────┼──────╢
+║   ~a  │  ~a  │  ~a   ║
+╚══════╧═════╧══════╝" )
+(defun play ()
+  (render-board board)
+  ()) 
+(defvar *board-ascii* "╔══════╤═════╤══════╗
+║   ~a  │  ~a  │  ~a   ║
+╟──────┼─────┼──────╢
+║   ~a  │  ~a  │  ~a   ║
+╟──────┼─────┼──────╢
+║   ~a  │  ~a  │  ~a   ║
+╚══════╧═════╧══════╝") (format t *board-ascii* 1 2 3 4 5 6 7 8 9)
+(defun render-board (board)
+  (format t "1 | 2 | 3 ~%______ ~%4 | 5 | 6 ~%7 | 8 | 9 ~%")) 
+
+(defun game-over (board)
+  body) 
+
+(defun make-turn ()
+  (if (not (game-over *board*) )
+      (progn (format *terminal-io* "x equals now to ~A ~%" *board*)
+              ;; this is due to weird behavior with query-io in SBCL
+              (force-output t)
+        (let ((x 0))
+         
+          (setf *board* (parse-integer (prompt-read "Make a turn")))
+        
+         )
+      (make-turn) )
+      (format t "Thank you for playing!!!!!") )
+  ) 
+(progn (format *terminal-io* "hello") (finish-output *terminal-io*) (fo))
+
+(defun main (&rest argv)
+  (declare (ignorable argv)))

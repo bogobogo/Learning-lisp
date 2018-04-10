@@ -1,0 +1,2 @@
+
+((:TITLE "he" :ARTIST "ad" :RATING 0 :RIPPED T) (:TITLE "(quit)" :ARTIST "a" :RATING 0 :RIPPED NIL) (:TITLE "Home" :ARTIST "Dixie Chicks" :RATING 7 :RIPPED T) (:TITLE "\"Dixie Chicks\"" :ARTIST "\"Dixie Chicks" :RATING 9 :RIPPED T) (:TITLE "moshe" :ARTIST "sama" :RATING 6 :RIPPED T) (:TITLE "anothertitle" :ARTIST "anotherartist" :RATING "anotherrating" :RIPPED "anotherripped") (:TITLE "mytitle" :ARTIST "myartist" :RATING "myrating" :RIPPED "myripped")) 
