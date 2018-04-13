@@ -13,8 +13,20 @@ First player's mark is X.
 Second player's mark is 0.
 The first one to have three marks in a cloumn, row, or diagonal wins!")
 
-(defun how-to-play-msg ()
+(defun how-to-play-msg (board)
+  (format t "~%~%Alright ~a and ~a, here is how you play!~%~%" *player1-name* *player2-name*)
+  (render-board board)
   (format t "~%~%~a~%~%" *how-to-play-msg* ))
+
+(defun are-u-ready-prompt ()
+  (y-or-n-p "Are you ready?~%")) 
+
+(defun play-again-prompt ()
+  (y-or-n-p "~%Play another game?~%")) 
+
+(defun set-players-prompt ()
+  (setf *player1-name* (prompt-read "Please enter player 1 name"))
+  (setf *player2-name* (prompt-read "Please enter player 2 name")))
 
  (defvar *board-ascii* "╔══════╤═════╤══════╗
 ║   ~a  │  ~a  │  ~a   ║
@@ -32,22 +44,24 @@ Please use an availabe square.~%" square-n))
 (format t "~%Sorry, move ~A is not possible.
 Are you sure it is one of the available numbers?~%" square-n))
 
-
+(defun not-a-number-msg ()
+  (format t "~%That does not look like a number to me.
+I have a feeling you are trying to test me... 
+~c[31mYOU SHALL NOT PASS!~c[0m~%" #\ESC #\ESC)) 
 
 (defun  tie-msg ()
 (format t "~%~A~%" "Well well well....
-It seems like we have a tie!! 
-Thank you for playing! "))
+It seems we have a tie! 
+Thank you for playing "))
 
 (defun win-msg (game-winner)
 (format t "~%Congrats player ~A, you won!!!....
 as a prize here is a link to a nice book  
 Thank you for playing!" game-winner))
 
-(defun game-done-msg (game-winner)
-  (cond ((zerop game-winner) (tie-msg))
-        ((win-msg game-winner)))
-   (quit))
+(defun game-done-msg (game-done)
+  (cond ((zerop game-done) (tie-msg))
+        ((win-msg game-done))))
 
 (defun close-game-msg ()
   (format t "ok, bye...."))
