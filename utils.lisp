@@ -1,13 +1,13 @@
 ;;;; Flat List Manipulation Utilities
 
-(defun set-nth (lst n elt)
-  (append (subseq lst 0 (- n 1)) (cons elt (cdr (subseq lst n)))))
+
 
 ;;; NOTE: This section is knowingly building utilities that are more properly used with arrays than with lists 
 ;;; The idea is to (a) practice my list manipulation skills and 
 ;;;                (b) It seems intresting to think of how it might come up useful in the future, however far fetched it might sound
 
-
+(defun set-nth (lst n elt)
+  (append (subseq lst 0 (- n 1)) (cons elt (cdr (subseq lst n)))))
 ;; TODO: Proper error handling 
 ;; 1) throw error when lst length is not column-length times row-length
 
@@ -38,7 +38,6 @@
     (dotimes (i row-length (list diagonal1 diagonal2))
       (setf diagonal1 (cons (nth (* i (+ row-length 1)) lst) diagonal1) 
             diagonal2 (cons (nth (+ (- row-length 1) (* i (- row-length 1))) lst) diagonal2)))))
-                            ;;  (cons (nth (+ row-length (* 2 (decf row-length))) lst) (cdr diagonals))
                             
 (defun mid (lst)
   (let ((lst-length (length lst)))
@@ -46,10 +45,6 @@
          (nth (/ (decf lst-length) 2) lst))))
          
 
-(defun rotate-list (lst row-length column-length)
-  (apply #'append (columns lst row-length column-length)))  
-
-;; 
 (defun prompt-read (prompt)
   (format *query-io* "~%~a:" prompt)
   (force-output *query-io*)
