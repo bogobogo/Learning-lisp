@@ -24,26 +24,30 @@ The first one to have three marks in a cloumn, row, or diagonal wins!")
 ║   ~a  │  ~a  │  ~a   ║
 ╚══════╧═════╧══════╝")
 
-(defvar *cant-move-msg* "Sorry, but the move ~A is not possible.
-Are you sure it is one of the available numbers?")
+(defun square-taken-msg (square-n) 
+(format t "~%Sorry, square ~A is already taken.
+Please use an availabe square.~%" square-n))
 
-(defun cant-move-msg (square-n)
-  (format *terminal-io* *cant-move-msg* square-n )
-  (force-output t)) 
+(defun invalid-move-msg (square-n) 
+(format t "~%Sorry, move ~A is not possible.
+Are you sure it is one of the available numbers?~%" square-n))
+
+
 
 (defun  tie-msg ()
 (format t "~%~A~%" "Well well well....
 It seems like we have a tie!! 
 Thank you for playing! "))
 
-(defun  win-msg (game-winner)
-(format t "Congrats player ~A, you won!!!....
+(defun win-msg (game-winner)
+(format t "~%Congrats player ~A, you won!!!....
 as a prize here is a link to a nice book  
 Thank you for playing!" game-winner))
 
 (defun game-done-msg (game-winner)
   (cond ((zerop game-winner) (tie-msg))
-        ((win-msg game-winner))))
+        ((win-msg game-winner)))
+   (quit))
 
 (defun close-game-msg ()
   (format t "ok, bye...."))

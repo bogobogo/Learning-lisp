@@ -1,7 +1,7 @@
 ;;;; Flat List Manipulation Utilities
 
 (defun set-nth (lst n elt)
-  (append (subseq lst 0 (decf n)) (cons elt (cdr (subseq lst n)))))
+  (append (subseq lst 0 (- n 1)) (cons elt (cdr (subseq lst n)))))
 
 ;;; NOTE: This section is knowingly building utilities that are more properly used with arrays than with lists 
 ;;; The idea is to (a) practice my list manipulation skills and 
