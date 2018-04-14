@@ -43,7 +43,6 @@
   (let ((lst-length (length lst)))
     (and (oddp lst-length)
          (nth (/ (decf lst-length) 2) lst))))
-         
 
 (defun prompt-read (prompt)
   (format *query-io* "~%~a:" prompt)

@@ -13,6 +13,12 @@ First player's mark is X.
 Second player's mark is 0.
 The first one to have three marks in a cloumn, row, or diagonal wins!")
 
+(defun x-mark ()
+  (format nil "~c[96mX~c[0m" #\ESC #\ESC))
+
+(defun o-mark ()
+  (format nil "~c[92mO~c[0m" #\ESC #\ESC))
+ 
 (defun how-to-play-msg (board)
   (format t "~%~%Alright ~a and ~a, here is how you play!~%~%" *player1-name* *player2-name*)
   (render-board board)
@@ -56,7 +62,7 @@ Thank you for playing "))
 
 (defun win-msg (game-winner)
 (format t "~%Congrats player ~A, you won!!!....
-as a prize here is a link to a nice book  
+as a prize here is a link to a nice book http://www.gigamonkeys.com/book/ 
 Thank you for playing!" game-winner))
 
 (defun game-done-msg (game-done)
