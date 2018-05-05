@@ -1,17 +1,27 @@
 (defvar *welcome-msg*
-"Hello and welcome to (tic tac tow)! its like tic-tac-tow, except it is... no actually it's exactly like tic-tac-tow.
+"-------------------------------------------------------------------------
+
+Hello and welcome to (tic tac toe)! its like tic-tac-toe, except it is... no actually it's exactly like tic-tac-toe.
 But it's written in common lisp. Its a programming language. never mind.
 To begin, please enter the first player name and the second player name!")
 
-(defun welcome-msg ()
-  (format t "~a~%~%" *welcome-msg* ))
-
- (defvar *how-to-play-msg* 
+(defvar *how-to-play-msg* 
 "Above this message is your game board.
 Each player in his turn can put his mark on a square in the board by typing the number that corresponds to the square.
 First player's mark is X.
 Second player's mark is 0.
 The first one to have three marks in a cloumn, row, or diagonal wins!")
+
+(defvar *board-ascii* "╔══════╤═════╤══════╗
+║   ~a  │  ~a  │  ~a   ║
+╟──────┼─────┼──────╢
+║   ~a  │  ~a  │  ~a   ║
+╟──────┼─────┼──────╢
+║   ~a  │  ~a  │  ~a   ║
+╚══════╧═════╧══════╝")
+
+(defun welcome-msg ()
+  (format t "~a~%~%" *welcome-msg* ))
 
 (defun x-mark ()
   (format nil "~c[96mX~c[0m" #\ESC #\ESC))
@@ -20,7 +30,7 @@ The first one to have three marks in a cloumn, row, or diagonal wins!")
   (format nil "~c[92mO~c[0m" #\ESC #\ESC))
  
 (defun how-to-play-msg (board)
-  (format t "~%~%Alright ~a and ~a, here is how you play!~%~%" *player1-name* *player2-name*)
+  (format t "~%~%Alright ~a and ~a, here is how you play!~%~%" (get-player-v 1 player-name) (get-player-v 2 player-name))
   (render-board board)
   (format t "~%~%~a~%~%" *how-to-play-msg* ))
 
@@ -31,16 +41,8 @@ The first one to have three marks in a cloumn, row, or diagonal wins!")
   (y-or-n-p "~%Play another game?~%")) 
 
 (defun set-players-prompt ()
-  (setf *player1-name* (prompt-read "Please enter player 1 name"))
-  (setf *player2-name* (prompt-read "Please enter player 2 name")))
-
- (defvar *board-ascii* "╔══════╤═════╤══════╗
-║   ~a  │  ~a  │  ~a   ║
-╟──────┼─────┼──────╢
-║   ~a  │  ~a  │  ~a   ║
-╟──────┼─────┼──────╢
-║   ~a  │  ~a  │  ~a   ║
-╚══════╧═════╧══════╝")
+  (set-player-v 1 player-name (prompt-read "Please enter player 1 name"))
+  (set-player-v 2 player-name (prompt-read "Please enter player 2 name")))
 
 (defun square-taken-msg (square-n) 
 (format t "~%Sorry, square ~A is already taken.

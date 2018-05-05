@@ -1,24 +1,27 @@
-;;;; Flat List Manipulation Utilities
+(defun prompt-read (prompt)
+  (format *query-io* "~%~a:" prompt)
+  (force-output *query-io*)
+  (read-line *query-io*))
 
+(defun getas (asc key)
+  (cdr (assoc key asc)))
 
+(defmacro set-player-v (key prop val)
+  `(setf (,prop (getas *players* ,key)) ,val))
 
+(defmacro get-player-v (key prop)
+  `(,prop (getas *players* ,key)))
+  
 ;;; NOTE: This section is knowingly building utilities that are more properly used with arrays than with lists 
 ;;; The idea is to (a) practice my list manipulation skills and 
 ;;;                (b) It seems intresting to think of how it might come up useful in the future, however far fetched it might sound
 
-(defun set-nth (lst n elt)
-  (append (subseq lst 0 (- n 1)) (cons elt (cdr (subseq lst n)))))
-;; TODO: Proper error handling 
-;; 1) throw error when lst length is not column-length times row-length
-
-;; TODO: change to recursive, calling setf every time is not very lispy 
 (defun rect-columns (lst column-length row-length)
   (let ((column-lst))
     (dotimes (i row-length (reverse column-lst))
       (setf column-lst (cons (rect-column lst i column-length row-length )
                               column-lst))))) 
 
-;; TODO: change to recursive, calling setf every time is not very lispy 
 (defun rect-column (lst idx column-length row-length)
   (let ((col))
     (dotimes (i column-length (reverse col))
@@ -39,13 +42,7 @@
       (setf diagonal1 (cons (nth (* i (+ row-length 1)) lst) diagonal1) 
             diagonal2 (cons (nth (+ (- row-length 1) (* i (- row-length 1))) lst) diagonal2)))))
                             
-(defun mid (lst)
-  (let ((lst-length (length lst)))
-    (and (oddp lst-length)
-         (nth (/ (decf lst-length) 2) lst))))
 
-(defun prompt-read (prompt)
-  (format *query-io* "~%~a:" prompt)
-  (force-output *query-io*)
-  (read-line *query-io*))
+
+
 
